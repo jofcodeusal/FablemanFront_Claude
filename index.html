@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fableman</title>
+    <!-- FFmpeg.wasm SharedArrayBuffer support -->
+    <script>
+      // Enable SharedArrayBuffer for FFmpeg.wasm
+      if (typeof SharedArrayBuffer === 'undefined') {
+        console.warn('SharedArrayBuffer is not available. FFmpeg functionality may be limited.');
+      }
+      
+      // Register Service Worker for FFmpeg COEP header support
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('Service Worker registered successfully:', registration.scope);
+            })
+            .catch(error => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/main.tsx"></script>
+  </body>
+</html>
